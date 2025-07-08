@@ -2,9 +2,20 @@ from io import BytesIO
 import qrcode
 from fastapi import FastAPI,Form
 from fastapi.responses import StreamingResponse
+from fastapi.middleware.cors import CORSMiddleware
 
 
 app = FastAPI()
+
+origin = ["http://localhost:63342"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins= origin,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.post('/qrgen')
 
