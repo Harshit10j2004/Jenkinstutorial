@@ -33,7 +33,7 @@ def qrgene(data: str = Form(...)):
     qr.add_data(data)
     qr.make(fit = True)
 
-    img = qr.make_image(fill_colour = 'black' , back_colour = 'white')
+    img = qr.make_image(fill_color = 'black' , back_color = 'white')
 
     buffer = BytesIO()
     img.save(buffer, format="PNG")
