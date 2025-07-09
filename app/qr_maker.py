@@ -4,7 +4,7 @@ from fastapi import FastAPI,Form
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 
-
+# just for trigger
 app = FastAPI()
 
 origin = ["http://localhost:63342"]
