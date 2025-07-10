@@ -27,7 +27,7 @@ pipeline{
             steps{
 
                 echo "start testing"
-                bat 'pytest tests/ --maxfail=1 --disable-warnings --tb=short'
+                bat 'python -m pytest tests/ --maxfail=1 --disable-warnings --tb=short'
             }
         }
     }

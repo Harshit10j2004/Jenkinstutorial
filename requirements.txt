@@ -1,3 +1,4 @@
 qrcode[pil]
 fastapi
 uvicorn
+pytest
