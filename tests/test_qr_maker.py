@@ -1,7 +1,7 @@
 import pytest
 
 from fastapi.testclient import TestClient
-from qr_maker import app
+from app.qr_maker import app
 
 client = TestClient(app)
 
