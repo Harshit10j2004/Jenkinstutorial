@@ -1,0 +1,4 @@
+python-multipart
+qrcode
+uvicorn
+fastapi
