@@ -15,7 +15,7 @@ pipeline{
 
                 echo "started downloading"
 
-                sh 'pip install -r requirements.txt'
+                bat 'pip install -r requirements.txt'
             }
         }
         stage("tests"){
@@ -23,7 +23,7 @@ pipeline{
             steps{
 
                 echo "start testing"
-                sh 'pytest tests/ --maxfail=1 --disable-warnings --tb=short'
+                bat 'pytest tests/ --maxfail=1 --disable-warnings --tb=short'
             }
         }
     }
