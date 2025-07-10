@@ -1,5 +1,9 @@
 pipeline{
     agent any
+    tools{
+
+        git 'main-git'
+    }
     stages{
         stage("checkout"){
 
