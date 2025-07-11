@@ -30,6 +30,36 @@ pipeline{
                 bat 'python -m pytest tests/ --maxfail=1 --disable-warnings --tb=short'
             }
         }
+        stage('Image creation and pushing'){
+            steps{
+
+                withCredentials([
+                    usernamePassword
+                    (
+                        credentialsId: 'dockerhub-creds',
+                        usernameVariable: 'DOCKER_USER',
+                        passwordVariable: 'DOCKER_PASS'
+                    )
+                         ]) 
+                {
+                    
+                    echo "login"
+
+                    bat 'docker login -u %DOCKER_USER% -p %DOCKER_PASS%'
+
+                    echo 'image creation'
+
+                    bat 'docker image build -t %DOCKER_USER%/qr:latest ./app'
+
+                    echo 'pushing'
+
+                    bat 'docker push  %DOCKER_USER%/qr:latest'
+
+
+                }
+           
+            }
+        }
     }
 
     post{
