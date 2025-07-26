@@ -1,11 +1,14 @@
-pipeline{
+pipeline
+{
     agent any
-    tools{
+    tools
+    {
 
         git 'main-git'
     }
 
-    environment {
+    environment 
+    {
         
         ECR_REPO = "harshit1001"
         ECR_REGISTRY = "869935091377.dkr.ecr.ap-south-1.amazonaws.com"
@@ -13,33 +16,41 @@ pipeline{
         IMAGE_TAG = "latest"
 
     }
-    stages{
-        stage("checkout"){
+    stages
+    {
+        stage("checkout")
+        {
 
-            steps{
+            steps
+            {
                 echo "started to checkout"
                 checkout scm
             }
         }
 
-        stage("download dependencies"){
+        stage("download dependencies")
+        {
             
-            steps{
+            steps
+            {
 
                 echo "started downloading"
 
                 bat 'pip install -r requirements.txt'
             }
         }
-        stage("tests"){
+        stage("tests")
+        {
 
-            steps{
+            steps
+            {
 
                 echo "start testing"
                 bat 'python -m pytest tests/ --maxfail=1 --disable-warnings --tb=short'
             }
         }
-        stage('Image creation and pushing to dockerhub'){
+        stage('Image creation and pushing to dockerhub')
+        {
             steps{
 
                 withCredentials([
@@ -70,9 +81,11 @@ pipeline{
             }
         }
 
-        stage('login to ecr'){
+        stage('login to ecr')
+        {
 
-            steps{
+            steps
+            {
 
                 echo 'login into the ecr'
                 bat "aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 869935091377.dkr.ecr.ap-south-1.amazonaws.com"
@@ -80,16 +93,18 @@ pipeline{
             }
         }
 
-        stage('push to ecr'){
+        stage('push to ecr')
+        {
 
-            steps{
+            steps
+            {
                     echo 'tagging image'
                     bat 'docker tag %DOCKER_USER%/qr:%IMAGE_TAG% %ECR_REGISTRY%/%ECR_REPO%:%IMAGE_TAG%'
 
                     echo 'pushing image'
                     bat 'docker push %ECR_REGISTRY%/%ECR_REPO%:%IMAGE_TAG%'
 
-                }
+                
             }
         }
 
