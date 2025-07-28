@@ -40,6 +40,15 @@ pipeline
                 bat 'pip install -r requirements.txt'
             }
         }
+
+        stage('Cleanup') 
+        {
+            steps 
+            {
+                bat 'docker image prune -a -f'
+            }
+        }
+
         stage("tests")
         {
 
