@@ -12,6 +12,7 @@ pipeline
         
         ECR_REPO = "harshit1001"
         ECR_REGISTRY = "869935091377.dkr.ecr.ap-south-1.amazonaws.com"
+        ECR_REPO2 = "frontend-repo"
         APP_REGISTRY = " "
         IMAGE_TAG = "latest"
         DOCKER_USER = "harshit1001"
@@ -41,14 +42,7 @@ pipeline
             }
         }
 
-        stage('Cleanup') 
-        {
-            steps 
-            {
-                bat 'docker image prune -a -f'
-            }
-        }
-
+        
         stage("tests")
         {
 
@@ -64,9 +58,13 @@ pipeline
             steps{
 
                
-                echo 'image creation'
+                echo 'backend image creation'
 
                 bat 'docker build --no-cache -t %ECR_REGISTRY%/%ECR_REPO%:%IMAGE_TAG% ./app'
+
+                echo 'creating frontend image'
+
+                bat 'docker build --no-cache -t %ECR_REGISTRY%/%ECR_REPO2%:%IMAGE_TAG% ./frontend'
 
 
                 }
@@ -99,8 +97,11 @@ pipeline
                 {
                     
 
-                    echo 'pushing image'
+                    echo 'pushing backend image'
                     bat 'docker push %ECR_REGISTRY%/%ECR_REPO%:%IMAGE_TAG%'
+
+                    echo 'pushing frontend image'
+                    bat 'docker push %ECR_REGISTRY%/%ECR_REPO2%:%IMAGE_TAG%'
                 }
                 
             }
