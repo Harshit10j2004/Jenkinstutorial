@@ -66,7 +66,7 @@ pipeline
                
                 echo 'image creation'
 
-                bat 'docker build -t %ECR_REGISTRY%/%ECR_REPO%:%IMAGE_TAG% ./app'
+                bat 'docker build --no-cache -t %ECR_REGISTRY%/%ECR_REPO%:%IMAGE_TAG% ./app'
 
 
                 }
