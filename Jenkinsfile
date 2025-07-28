@@ -62,7 +62,7 @@ pipeline
 
                 }
            
-            }
+            
         }
 
         stage('login to ecr')
