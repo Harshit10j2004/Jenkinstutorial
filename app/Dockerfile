@@ -2,6 +2,8 @@ FROM python:3.11-slim
 
 LABEL authors="harshit"
 
+# Build Trigger: 28 July 2025 16:15
+
 WORKDIR /application
 
 COPY . .
