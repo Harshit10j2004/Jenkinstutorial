@@ -50,31 +50,14 @@ pipeline
                 bat 'python -m pytest tests/ --maxfail=1 --disable-warnings --tb=short'
             }
         }
-        stage('Image creation and pushing to dockerhub')
+        stage('Image creation ')
         {
             steps{
 
-                withCredentials([
-                    usernamePassword
-                    (
-                        credentialsId: 'dockerhub-creds',
-                        usernameVariable: 'DOCKER_USER',
-                        passwordVariable: 'DOCKER_PASS'
-                    )
-                         ]) 
-                {
-                    
-                    echo "login"
+               
+                echo 'image creation'
 
-                    bat 'docker login -u %DOCKER_USER% -p %DOCKER_PASS%'
-
-                    echo 'image creation'
-
-                    bat 'docker image build -t %DOCKER_USER%/qr:latest ./app'
-
-                    echo 'pushing'
-
-                    bat 'docker push  %DOCKER_USER%/qr:latest'
+                bat 'docker build -t %ECR_REGISTRY%/%ECR_REPO%:%IMAGE_TAG% ./app'
 
 
                 }
@@ -105,8 +88,7 @@ pipeline
             {
                 withAWS(credentials: 'AWS', region: 'ap-south-1')
                 {
-                    echo 'tagging image'
-                    bat 'docker tag %DOCKER_USER%/qr:%IMAGE_TAG% %ECR_REGISTRY%/%ECR_REPO%:%IMAGE_TAG%'
+                    
 
                     echo 'pushing image'
                     bat 'docker push %ECR_REGISTRY%/%ECR_REPO%:%IMAGE_TAG%'
