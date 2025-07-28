@@ -105,7 +105,7 @@ pipeline
                 withAWS(credentials: 'AWS', region: 'ap-south-1')
                 {
                     echo 'tagging image'
-                    bat 'docker tag %DOCKER_USER%/qr:%IMAGE_TAG% %ECR_REGISTRY%/%ECR_REPO%:%IMAGE_TAG%'
+                    bat 'docker tag qr:%IMAGE_TAG% %ECR_REGISTRY%/%ECR_REPO%:%IMAGE_TAG%'
 
                     echo 'pushing image'
                     bat 'docker push %ECR_REGISTRY%/%ECR_REPO%:%IMAGE_TAG%'
