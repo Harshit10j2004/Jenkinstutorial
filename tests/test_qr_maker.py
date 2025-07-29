@@ -14,4 +14,4 @@ def testing(url):
     response = client.post("/qrgen", data={"data": url})
     assert response.status_code == 200
     assert response.headers["content-type"] == "image/png"
-    assert len(response.content) > 0# api testing and unit testing
+    assert len(response.content) > 0
