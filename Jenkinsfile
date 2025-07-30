@@ -237,7 +237,7 @@ pipeline
             echo 'sucess and mail is send'
             mail(
                  to: "hg079567@gmail.com",
-                subject: "deployed"
+                subject: "deployed",
                 body: "the app is updated and deployed"
             )
         }
@@ -246,7 +246,7 @@ pipeline
             echo "failure see logs and mail is send"
             mail (
                 to: "hg079567@gmail.com",
-                subject: "error"
+                subject: "error",
                 body: "the app cant deploy there is error see logs"
             )
         }
