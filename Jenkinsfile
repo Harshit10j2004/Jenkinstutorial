@@ -10,15 +10,16 @@ pipeline
     environment 
     {
         
-        ECR_REPO = "harshit1001"
-        ECR_REGISTRY = "869935091377.dkr.ecr.ap-south-1.amazonaws.com"
-        ECR_REPO2 = "frontend-repo"
-        APP_REGISTRY = " "
+        ECR_REPO = "your-ecr-repo-name"
+        ECR_REGISTRY = "ecr-repo-link"
+        ECR_REPO2 = "second-repo-name"
+
         IMAGE_TAG = "latest"
-        DOCKER_USER = "harshit1001"
-        cluster = "harshitclusterforqr"
-        service1 = "backend"
-        service2 = "frontend"
+        DOCKER_USER = "docker-username"
+        cluster = "cluster-name"
+        service1 = "service-name"
+        service2 = "second-service-name"
+        email = "your-email"
 
 
 
@@ -236,7 +237,7 @@ pipeline
         success{
             echo 'sucess and mail is send'
             mail(
-                 to: "hg079567@gmail.com",
+                 to: "${email}",
                 subject: "deployed",
                 body: "the app is updated and deployed"
             )
@@ -245,7 +246,7 @@ pipeline
         failure{
             echo "failure see logs and mail is send"
             mail (
-                to: "hg079567@gmail.com",
+                to: "${email}",
                 subject: "error",
                 body: "the app cant deploy there is error see logs"
             )
